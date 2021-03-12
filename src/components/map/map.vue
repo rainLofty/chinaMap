@@ -47,12 +47,19 @@ export default {
       this.colorConfig = chinaMap.editColor(this.areaCode, this.colorData); //颜色配置
       this.divisionMap = chinaMap.divisionMap; //区划名称和编码一一对应
       this.mapChartObj = echarts.init(this.$refs.map, "macarons");
-      // 下钻功能
+
+      // 下钻功能  不需要直接删除即可
       this.mapChartObj.on("click", (params) => {
         if (params.data && params.data.code) {
           this.mapClick(params.data.code);
         }
       });
+
+      //卸载移入事件,为了不让引入变色加的这个方法，可以删除
+      this.mapChartObj.on("mouseover", function (params) {
+        this.dispatchAction({ type: "downplay" });
+      });
+
       this.init();
     },
     init() {
