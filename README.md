@@ -18,3 +18,5 @@ demo中只有安徽省可以点击，其他的没配置
 * valueConfig 用来告知地图中有哪些区域
 * divisionMap 行政区划编码和地名一一对应
 * editColor  用来配置地图每个模块的颜色
+
+![image.png](https://upload-images.jianshu.io/upload_images/24319978-73315aefe54c7e8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
