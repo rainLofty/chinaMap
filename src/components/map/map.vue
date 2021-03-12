@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     initData() {
-      this.colorConfig = chinaMap.editColor(this.areaCode, this.colorData); //颜色配置
+      this.colorConfig = this.editColor(this.areaCode); //颜色配置
       this.divisionMap = chinaMap.divisionMap; //区划名称和编码一一对应
       this.mapChartObj = echarts.init(this.$refs.map, "macarons");
 
@@ -91,7 +91,8 @@ export default {
       if (!areaCode) {
         areaCode = this.areaCode;
       }
-      this.colorConfig = chinaMap.editColor(areaCode, this.colorData); //颜色配置
+      this.colorConfig = this.editColor(areaCode); //颜色配置
+
       this.mapData = chinaMap.valueConfig[areaCode] || [];
       this.mapChartObj.clear();
       echarts.registerMap(areaCode, chinaMap.mapConfig[areaCode]);
@@ -117,15 +118,35 @@ export default {
             },
             coordinateSystem: "geo",
             data: this.mapData,
-            symbolSize: 16,
           },
         ],
         dataRange: {
-          show: false,
+          show: true, //是否显示指示器，false不显示，true显示
           splitList: this.colorConfig || [],
         },
       };
       this.mapChartObj.setOption(option);
+    },
+    //颜色配置
+    editColor(areaCode = "340000") {
+      let data = this.colorData || {}; //{340100:'#f00',340200:'#0f0'}
+      console.log(data);
+      let defaultColor = "#f4f4f4"; //默认颜色
+      let result = [],
+        arr = chinaMap.valueConfig[areaCode];
+      if (arr) {
+        arr.forEach((element, index) => {
+          let item = {};
+          item.start = index + 1;
+          item.end = index + 1;
+          item.label = element.name;
+          item.code = element.code;
+          item.color = data[item.code] || defaultColor;
+          result.push(item);
+        });
+      }
+      console.log(result);
+      return result;
     },
     indexOfArr(arr, val) {
       let isArray = arr instanceof Array;

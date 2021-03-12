@@ -137,20 +137,4 @@ export default {
     mapConfig,
     valueConfig,
     divisionMap,
-    editColor(areaCode='340000',data={}) {//{340100:'#f00',340200:'#0f0'}
-        let defaultColor = "#f4f4f4"; //默认颜色
-        let result = [], arr = valueConfig[areaCode];
-        if(arr){
-            arr.forEach((element,index)=>{
-                let item = {};
-                item.start = index+1;
-                item.end = index+1;
-                item.label = element.name;
-                item.code = element.code;
-                item.color = data[item.code] || defaultColor;
-                result.push(item);
-            })
-        }
-        return result;
-    },
 };
